@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@tinkoff/utils": "^2.6.2",
+    "curry": "^1.2.0"
+  }
+}
