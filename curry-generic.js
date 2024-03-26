@@ -36,3 +36,9 @@ let cSplice = a.splice.bind(a);
 let curriedSplice = curry(cSplice);
 let res = curriedSplice(1)(2)();
 console.log(res); // [4, 3]
+
+let cConcat = a.concat.bind(a);
+let curriedConcat = curry(cConcat);
+let res1 = curriedConcat(1)(2)(3)();
+console.log(Array.isArray(res1)); // true
+console.log(res1); // [5, 4, 3, 2, 1, 1, 2, 3]

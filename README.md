@@ -36,7 +36,7 @@ These are some examples of JavaScript array methods that require more than one c
 * [Proxy Class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 * [Create a Null safe world using JavaScript Proxy](https://yiou.me/blog/posts/proxy-deeply-nested-object)
 
-## Goal
+## Proxy 
 
 [Yiou](https://yiou.me/blog/posts/proxy-deeply-nested-object)) wants to implement a function `proximize` that takes an object and returns a Proxy object. The `unproximize` function unwraps a Proxy and returns the value.
 
