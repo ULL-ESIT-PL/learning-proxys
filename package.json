@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@tinkoff/utils": "^2.6.2",
+    "callable-instance": "^2.0.0",
     "curry": "^1.2.0"
   }
 }

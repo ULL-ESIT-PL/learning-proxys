@@ -1,49 +1,30 @@
-const UNIQUE_KEY = Symbol();
-
-function proximize(target) {
-    return new Proxy({ value: target }, { 
-        get(getTarget, key, receiver) {
-            if (key === UNIQUE_KEY) {
-                return getTarget.value;
-            }
-            if (getTarget.value != null) {
-                return proximize(getTarget.value[key]);
-            } else {
-                return proximize(undefined);
-            }
-        }
-    });
-}
-
-function unproximize(proxy) {
-  return proxy[UNIQUE_KEY];
-}
-
-const pikachu = {
-  name: 'pikachu',
-  stats: {
-    HP: 35,
-    attack: 55,
-    defend: 50
-  },
-  say: function() {
-    console.log('pika pika');
-  }
+const target = {
+  message1: "hello",
+  message2: "everyone",
 };
 
-// test it out
-let obj = {hello: 'world', long:{a:{c:4}}}
-let el = proximize(obj);
-console.log(unproximize(el.long)); // {a: {c: 4}}
-console.log(unproximize(el.long.a.c)); // 4
-console.log(unproximize(el.long.a.c.d)); // undefined
+const handler2 = {
+  get(target, prop, receiver) {
+    console.log("target", target, "prop", prop, "receiver", receiver);
+    return "world";
+  },
+};
 
+const handler3 = {
+  get(target, prop, receiver) {
+    switch (typeof prop) {
+      case "string":
+        return prop;
+      case "object":
+        return prop;
+      case "symbol":
+        return prop;
+    }
+    return Reflect.get(...arguments);
+  },
+};
 
-const p = proximize(pikachu); // create a Proxy that wraps pikachu object.
-const attack = unproximize(p.stat.attack); // 55
-const food = unproximize(p.favorites.food); // undefined
-p.speed = 90; // you can set the attribute on Proxy, the original object will be affected.
-p.favorites.food = 'ketchup'; // setting food attribute on undefined value has no effect.
+const proxy3 = new Proxy(target, handler3);
 
-unproximize(p.say)(); // "pika pika"
-unproximize(p.sing)(); // doesn't have sing function, so no effect.
+console.log(proxy3.message1); // hello
+console.log(proxy3.message2); // world
