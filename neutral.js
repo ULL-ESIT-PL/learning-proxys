@@ -42,7 +42,7 @@ console.error(neutral.add("world")); // Output: world
 console.error("neutral length = ",neutral.length); // 1
 console.log(neutral.add(4)); // Output: 4
 console.log("4.add(neutral) = ",(4).add(neutral)); // Output: 4
-
+console.log("hello"+neutral+" world")
 console.error(neutral.mul(4)); // Output: 4
 console.error(neutral(5)); // Output: 5
 //console.log(yProxy.fallback('Fallback executed')); // Output: Fallback executed
