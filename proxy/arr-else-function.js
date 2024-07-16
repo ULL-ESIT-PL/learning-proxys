@@ -16,8 +16,9 @@ let s = new Proxy(arr, handler2);
 try {
   let r = s[9]; // => 81
   console.log(r);
-  s[9] = 9;
-  console.log(s[9]); // => 9
+  s[3] = 3;
+  console.log(s[3]); // => 3
+  console.log(s["length"]); // => 4
 } catch (e) {
   console.log(e.message);
 }
