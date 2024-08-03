@@ -1,6 +1,6 @@
 ## Proxy 
 
-[proxy.md](/proxy/proxy.md)
+[An else clause for data structures](/proxy/README.md)
 
 ## Currying
 

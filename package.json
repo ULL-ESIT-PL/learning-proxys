@@ -1,7 +1,18 @@
 {
+  "scripts": {
+    "save": "git ci -am proxies && git push"
+  },
   "dependencies": {
     "@tinkoff/utils": "^2.6.2",
     "callable-instance": "^2.0.0",
     "curry": "^1.2.0"
-  }
+  },
+  "name": "proxies",
+  "description": "[An else clause for data structures](/proxy/README.md)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "Casiano Rodriguez Leon <crguezl@ull.edu.es> (https://crguezl.github.io/)",
+  "license": "ISC"
 }
