@@ -15,7 +15,8 @@ class CachedFunction extends Callable {
     }
 
     _call(arg) {
-        return this.cache.get(arg) || this.function(arg);
+        if (typeof this.cache.get(arg) !== 'undefined') return this.cache.get(arg);
+        return this.function(arg);
     }
 
 }
