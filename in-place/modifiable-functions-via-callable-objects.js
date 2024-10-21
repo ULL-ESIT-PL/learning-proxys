@@ -26,3 +26,6 @@ let cf = new CachedFunction(x => x*2);
 console.log(cf(1));  // 2
 cf.cache.set(1, -1); // Low level version of cf(1) = -1
 console.log(cf(1));  // -1
+console.log(cf(0));  // 0
+cf.cache.set(0, -2); // Low level version of cf(0) = -2
+console.log(cf(0));  // -2
