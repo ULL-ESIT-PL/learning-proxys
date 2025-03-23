@@ -111,3 +111,85 @@ This code demonstrates how you can create a class in JavaScript that behaves lik
 
 ## Summary:
 By using **Proxies** and **callable objects**, you can effectively modify the behavior of a function *in-place* in JavaScript. This method allows for dynamic interception, extension, or modification of function behavior without altering the original function’s implementation, making it a powerful tool for metaprogramming or customizing logic.
+
+
+## Constructor Explicit return
+
+Thought for 3 seconds### Purpose of a `return` Statement Inside a Constructor
+
+In JavaScript, constructors typically don't need explicit `return` statements because they automatically return the newly created instance (`this`). However, including a `return` statement in a constructor has special behavior that can be useful in certain patterns.
+
+### Normal Constructor Behavior
+
+```javascript
+class Person {
+  constructor(name) {
+    this.name = name;
+    // No return statement - implicitly returns `this`
+  }
+}
+
+const person = new Person("Alice"); // person is the Person instance
+```
+
+### What Happens When You Use `return` in a Constructor
+
+The behavior depends on what you return:
+
+1. **Returning a primitive value (string, number, boolean, etc.)**: The return value is ignored, and the constructor still returns the instance (`this`)
+2. **Returning an object (including functions, arrays, etc.)**: The returned object replaces the instance that would normally be returned
+
+
+### Example: Returning a Primitive (No Effect)
+
+```javascript
+class Example {
+  constructor() {
+    this.value = 42;
+    return "hello"; // This is ignored
+  }
+}
+
+const ex = new Example();
+console.log(ex); // Example { value: 42 } - the instance is returned, not "hello"
+```
+
+### Example: Returning an Object (Replaces Instance)
+
+```javascript
+class Example {
+  constructor() {
+    this.value = 42;
+    return { differentValue: 100 }; // This replaces the instance
+  }
+}
+
+const ex = new Example();
+console.log(ex); // { differentValue: 100 } - NOT an Example instance
+```
+
+### Why Use This Pattern?
+
+There are several use cases for returning a different object from a constructor:
+
+1. **Instance Replacement**: Returning a different type of object based on parameters
+2. **Singleton Pattern**: Always returning the same instance
+3. **Proxy Pattern**: Returning a wrapper around the actual instance
+4. **Factory Pattern**: Using a constructor to create different types of objects
+
+
+### In Our  `Callable` Example
+
+```javascript
+class Callable extends Function {
+    constructor() {
+        super('...args', 'return this._bound._call(...args)')
+        this._bound = this.bind(this)
+        return this._bound // Returns a function instead of the instance
+    }
+}
+```
+
+In this case, the constructor returns `this._bound`, which is a function. This allows instances of `Callable` to be directly callable as functions while still maintaining their instance properties and methods. When you do `new Callable()`, you get back a function that, when called, will invoke the `_call` method on the original instance.
+
+This technique is used when you want an object that is both a function and has properties/methods of its own - essentially creating "enhanced functions" that can be called directly but also have additional functionality.
